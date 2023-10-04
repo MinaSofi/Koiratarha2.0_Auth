@@ -1,1 +1,1 @@
-# Koiratarha2.0_Auth
+# Authentication server for Koiratarha 2.0
