@@ -51,6 +51,7 @@ const userPut = async (
 ) => {
   try {
     const errors = validationResult(req);
+    console.log('user body ', req.body);
 
     if (!errors.isEmpty()) {
       const messages = errors
@@ -62,6 +63,7 @@ const userPut = async (
     }
 
     const user = req.body;
+    console.log('user body ', req.body);
     user.password = await bcrypt.hash(user.password, 12);
 
     const updatedUser = await userModel.findByIdAndUpdate(
@@ -72,6 +74,8 @@ const userPut = async (
       }
     );
 
+    console.log('updated user ', updatedUser);
+
     if (!updatedUser) {
       next(new CustomError('User not found', 404));
       return;
@@ -80,7 +84,7 @@ const userPut = async (
     const message: DBMessageResponse = {
       message: 'User updated',
       data: {
-        id: updatedUser._id,
+        id: updatedUser.id,
         username: updatedUser.username,
       },
     };
@@ -90,7 +94,7 @@ const userPut = async (
   }
 };
 
-//only admin
+//admin only
 const userDelete = async (
   req: Request<{id: string}, {}, {}>,
   res: Response,

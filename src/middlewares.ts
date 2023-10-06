@@ -34,6 +34,7 @@ const authenticate = async (
     console.log('authenticate');
     // extract bearer token from header
     const bearerHeader = req.headers['authorization'];
+    console.log('headerit', req.headers);
     if (!bearerHeader || typeof bearerHeader === 'undefined') {
       next(new CustomError('token not valid', 403));
       return;
@@ -47,17 +48,17 @@ const authenticate = async (
       return;
     }
 
-    console.log('token', token);
+    //console.log('token', token);
     // extract user from token
     const user = jwt.verify(
       token,
       process.env.JWT_SECRET as string
     ) as OutputUser;
-    // check that user is in database
+    // check that user is in databasey
     console.log('authenticate', user);
     const result = await userModel.findById(user.id);
     if (result) {
-      console.log(user, result);
+      //console.log(user, result);
       res.locals.user = user;
       next();
     } else {
