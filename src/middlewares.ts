@@ -34,7 +34,6 @@ const authenticate = async (
     console.log('authenticate');
     // extract bearer token from header
     const bearerHeader = req.headers['authorization'];
-    console.log('headerit', req.headers);
     if (!bearerHeader || typeof bearerHeader === 'undefined') {
       next(new CustomError('token not valid', 403));
       return;
