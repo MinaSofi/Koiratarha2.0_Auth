@@ -65,7 +65,7 @@ const userPut = async (
     const user = req.body;
     console.log('user body ', req.body);
     user.password = await bcrypt.hash(user.password, 12);
-
+    
     const updatedUser = await userModel.findByIdAndUpdate(
       res.locals.user.id,
       user,
