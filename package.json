@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ilkkamtk/SSSF-auth-server.git"
+    "url": "git+https://github.com/MinaSofi/Koiratarha2.0_Auth.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ilkkamtk/SSSF-auth-server/issues"
+    "url": "https://github.com/MinaSofi/Koiratarha2.0_Auth/issues"
   },
-  "homepage": "https://github.com/ilkkamtk/SSSF-auth-server#readme",
+  "homepage": "https://github.com/MinaSofi/Koiratarha2.0_Auth#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
