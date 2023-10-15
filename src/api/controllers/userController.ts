@@ -65,7 +65,7 @@ const userPut = async (
     const user = req.body;
     console.log('user body ', req.body);
     user.password = await bcrypt.hash(user.password, 12);
-    
+
     const updatedUser = await userModel.findByIdAndUpdate(
       res.locals.user.id,
       user,
@@ -177,11 +177,27 @@ const userGet = async (
   }
 };
 
-const checkToken = (req: Request, res: Response, next: NextFunction) => {
-  if (!res.locals.user) {
-    next(new CustomError('token not valid', 403));
-  } else {
-    res.json(res.locals.user);
+const checkToken = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    if (!res.locals.user) {
+      next(new CustomError('token not valid', 403));
+    } else {
+      const user = await userModel
+        .findById(res.locals.user.id)
+        .select('-password -role -__v');
+
+      if (user === null) {
+        throw Error('user not found');
+      }
+
+      const response: DBMessageResponse = {
+        message: 'Token is valid',
+        data: {id: user?.id, username: user?.username},
+      };
+      res.json(response);
+    }
+  } catch (error) {
+    next(new CustomError('User not found', 500));
   }
 };
 
