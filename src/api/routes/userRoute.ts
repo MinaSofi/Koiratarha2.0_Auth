@@ -6,6 +6,7 @@ import {
   userGet,
   userPost,
   userPut,
+  userGetByName,
 } from '../controllers/userController';
 import {authenticate} from '../../middlewares';
 
@@ -18,5 +19,7 @@ router.route('/admin/:id').delete(authenticate, userDelete);
 router.get('/token', authenticate, checkToken);
 
 router.route('/:id').get(userGet);
+
+router.route('/user/:id').get(userGetByName);
 
 export default router;

@@ -177,6 +177,33 @@ const userGet = async (
   }
 };
 
+const userGetByName = async (
+  req: Request<{id: string}, {}, {}>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    
+    const user = await userModel
+      .findOne({username: req.params.id})
+      .select('-password -role -__v');
+
+    if (!user) {
+      next(new CustomError('User not found', 404));
+      return;
+    }
+
+    const response: DBMessageResponse = {
+      message: 'User found',
+      data: user,
+    };
+
+    res.json(response);
+  } catch (error) {
+    next(new CustomError('User not found', 500));
+  }
+};
+
 const checkToken = (req: Request, res: Response, next: NextFunction) => {
   if (!res.locals.user) {
     next(new CustomError('token not valid', 403));
@@ -185,4 +212,4 @@ const checkToken = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export {userPost, userPut, userDelete, userListGet, userGet, checkToken};
+export {userPost, userPut, userDelete, userListGet, userGet, checkToken, userGetByName};
