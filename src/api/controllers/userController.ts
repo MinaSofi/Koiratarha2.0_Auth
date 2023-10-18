@@ -183,7 +183,6 @@ const userGetByName = async (
   next: NextFunction
 ) => {
   try {
-    
     const user = await userModel
       .findOne({username: req.params.id})
       .select('-password -role -__v');
@@ -228,4 +227,12 @@ const checkToken = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export {userPost, userPut, userDelete, userListGet, userGet, checkToken, userGetByName};
+export {
+  userPost,
+  userPut,
+  userDelete,
+  userListGet,
+  userGet,
+  checkToken,
+  userGetByName,
+};
